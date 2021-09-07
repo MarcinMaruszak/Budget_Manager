@@ -77,7 +77,7 @@ public class UserInterface {
         printAllProductTypes();
         int index = Integer.parseInt(scanner.nextLine()) - 1;
         ProductType productType = ProductType.values()[index];
-        List<Product> products = budgetManager.getPurchasedProducts(productType);
+        List<Product> products = budgetManager.getPurchasedProductsByType(productType);
         products.sort(Comparator.comparing(Product::getPrice).reversed());
         printPurchasedList(products, productType);
     }
@@ -100,7 +100,7 @@ public class UserInterface {
             }
             if (index >= 0 && index < 4) {
                 ProductType productType = ProductType.values()[index];
-                List<Product> products = budgetManager.getPurchasedProducts(productType);
+                List<Product> products = budgetManager.getPurchasedProductsByType(productType);
                 printPurchasedList(products, productType);
             } else if (index == 4) {
                 List<Product> products = budgetManager.getPurchasedProducts();
@@ -115,7 +115,7 @@ public class UserInterface {
         System.out.println("\nTypes:");
         Map<Double, String> map = new HashMap<>();
         for (ProductType productType : ProductType.values()) {
-            List<Product> list = budgetManager.getPurchasedProducts(productType);
+            List<Product> list = budgetManager.getPurchasedProductsByType(productType);
             map.put(list.stream().mapToDouble(Product::getPrice).sum() , productType.getName());
         }
         List<Double> sums = new ArrayList<>(map.keySet());

@@ -12,7 +12,6 @@ public class BudgetManager {
     private double balance;
 
 
-
     public BudgetManager() {
         this.purchasedProducts = new ArrayList<>();
         this.balance = 0;
@@ -34,7 +33,7 @@ public class BudgetManager {
         this.balance = balance;
     }
 
-    public List<Product> getPurchasedProducts(ProductType productType) {
+    public List<Product> getPurchasedProductsByType(ProductType productType) {
         if(productType == null){
             return purchasedProducts;
         }
@@ -49,7 +48,7 @@ public class BudgetManager {
     }
 
 
-    double getTotal(){
+    public double getTotal(){
         double sum = purchasedProducts.stream().mapToDouble(Product::getPrice).sum();
 
         return new BigDecimal(sum).setScale(2 , RoundingMode.HALF_UP).doubleValue();

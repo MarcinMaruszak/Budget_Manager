@@ -1,6 +1,9 @@
 package budget;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.json.JsonMapper;
 
 import java.io.*;
 
@@ -9,7 +12,12 @@ public class DataSaverLoader {
     private ObjectMapper objectMapper;
 
     public DataSaverLoader() {
-        objectMapper = new ObjectMapper();
+        objectMapper = JsonMapper.builder()
+                .visibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY)
+                .visibility(PropertyAccessor.GETTER, JsonAutoDetect.Visibility.NONE)
+                .visibility(PropertyAccessor.SETTER, JsonAutoDetect.Visibility.NONE)
+                .visibility(PropertyAccessor.CREATOR, JsonAutoDetect.Visibility.NONE)
+                .build();
     }
 
     public void SaveToFile(BudgetManager budgetManager) throws IOException {
